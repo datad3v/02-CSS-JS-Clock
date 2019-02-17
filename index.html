@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>JS + CSS Clock</title>
+  <title>JS & CSS Clock</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
 
   <style>
     html {
-      background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      background: #018DED url(https://images.unsplash.com/photo-1548407260-da850faa41e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1187&q=80);
       background-size: cover;
       font-family: 'helvetica neue';
       text-align: center;
@@ -58,10 +58,42 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.32, 3.71, 0.74, 0.93);
     }
   </style>
 
   <script>
+      // Define const from HTML Div elements for clock hands
+      const secondHand = document.querySelector('.second-hand');
+      const minuteHand = document.querySelector('.min-hand');
+      const hourHand = document.querySelector('.hour-hand');
+
+      function setDate() {
+          const now = new Date();
+          
+          // Transform seconds to degrees
+          const seconds = now.getSeconds();
+          const secondsDegrees = ((seconds / 60) * 360) + 90;
+          secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+          
+          // Transform minutes to degrees
+          const minutes = now.getMinutes();
+          const minutesDegrees = ((minutes / 60) * 360) + 90;
+          minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
+          
+          // Transform hours to degrees
+          const hours = now.getHours();
+          const hoursDegrees = ((hours / 12) * 360) + 90;
+          hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+
+          // used for testing
+          // console.log(hours);
+      }
+
+      setInterval(setDate, 1000);
   </script>
 </body>
 </html>
